@@ -1,43 +1,39 @@
-# Travel Log Github Project Creator
+# Nuxt Travel Log
 
-A tool to create all the labels, issues and project cards for the Travel Log project.
+A full stack application built with Nuxt that allows users to keep track of all the places they've been.
 
 ## Setup
 
-### Repo / Project Setup
-
-1. Create a repo on github
-2. Add a project to the repo and choose the "Kanban" template
-
-### Tool Setup
-
-Create a .env file and update with your values.
-
-You can create a github token with the "repo" and "project" scope [here](https://github.com/settings/tokens/new).
+Create a `.env` file and update with your values:
 
 ```sh
 cp .env.example .env
 ```
 
-Install dependencies:
+Make sure to install dependencies:
 
-```sh
+```bash
 pnpm install
 ```
 
-## Run
+## Development Server
 
-Run the tool to create the labels, issues and project cards.
+Start the development server on `http://localhost:3000`:
 
-```sh
-pnpm start
+```bash
+pnpm dev
 ```
 
-## Use this tool for other projects
+## Production
 
-- The stories are in the [./data](./data) folder as markdown files.
-  - Epics are in [./data/epics/](./data/epics/)
-  - User stories are in [./data/stories/](./data/stories/)
-    - Each story file name should start with the corresponding epic story number.
-- The priority / order of stories on the board is in [./data/priority.json](./data/priority.json)
-- The code in [./src/index.ts](./src/index.ts) reads the markdown files in and creates the labels, issues and project cards accordingly.
+Build the application for production:
+
+```bash
+pnpm build
+```
+
+Locally preview production build:
+
+```bash
+pnpm preview
+```
