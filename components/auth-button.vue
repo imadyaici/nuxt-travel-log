@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-// const authStore = useAuthStore();
-const authStore = { user: { name: "username", image: null }, loading: false, signIn: () => {}, init: async () => {} };
+const authStore = useAuthStore();
 </script>
 
 <template>
