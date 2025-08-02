@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-// const authStore = useAuthStore();
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -14,7 +14,7 @@
           travel log app. Add locations, photos, and notes to create a
           digital journal of your journeys.
         </p>
-        <!-- <AuthButton v-if="!authStore.user" /> -->
+        <AuthButton v-if="!authStore.user" />
         <NuxtLink to="/dashboard" class="btn btn-primary">
           Start Logging
         </NuxtLink>
