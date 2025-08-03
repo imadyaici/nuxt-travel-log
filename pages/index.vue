@@ -15,7 +15,11 @@ const authStore = useAuthStore();
           digital journal of your journeys.
         </p>
         <AuthButton v-if="!authStore.user" />
-        <NuxtLink to="/dashboard" class="btn btn-primary">
+        <NuxtLink
+          v-else
+          to="/dashboard"
+          class="btn btn-primary"
+        >
           Start Logging
         </NuxtLink>
       </div>
