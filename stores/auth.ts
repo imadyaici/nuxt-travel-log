@@ -2,7 +2,7 @@ import { createAuthClient } from "better-auth/vue";
 
 const authClient = createAuthClient();
 
-export const useAuthStore = defineStore("authStore", () => {
+export const useAuthStore = defineStore("useAuthStore", () => {
   const session = ref<Awaited<ReturnType<typeof authClient.useSession>> | null>(null);
 
   async function init() {
@@ -14,27 +14,27 @@ export const useAuthStore = defineStore("authStore", () => {
   const loading = computed(() => session.value?.isPending);
 
   async function signIn() {
-    // const { csrf } = useCsrf();
-    // const headers = new Headers();
-    // headers.append("csrf-token", csrf);
+    const { csrf } = useCsrf();
+    const headers = new Headers();
+    headers.append("csrf-token", csrf);
     await authClient.signIn.social({
       provider: "github",
       callbackURL: "/dashboard",
       errorCallbackURL: "/error",
-      // fetchOptions: {
-      //   headers,
-      // },
+      fetchOptions: {
+        headers,
+      },
     });
   }
 
   async function signOut() {
-    // const { csrf } = useCsrf();
-    // const headers = new Headers();
-    // headers.append("csrf-token", csrf);
+    const { csrf } = useCsrf();
+    const headers = new Headers();
+    headers.append("csrf-token", csrf);
     await authClient.signOut({
-      // fetchOptions: {
-      //   headers,
-      // },
+      fetchOptions: {
+        headers,
+      },
     });
     navigateTo("/");
   }
