@@ -16,11 +16,11 @@ onMounted(() => {
       <span class="loading loading-spinner loading-xl" />
     </div>
     <div v-else-if="locations && locations.length > 0" class="location-list">
-      <!-- <LocationCard
+      <LocationCard
         v-for="location in locations"
         :key="location.id"
-      /> -->
-      <!-- :map-point="createMapPointFromLocation(location)" -->
+        :map-point="createMapPointFromLocation(location)"
+      />
     </div>
     <div v-else class="flex flex-col gap-2 mt-4">
       <p>Add a location to get started</p>

@@ -5,7 +5,7 @@ const isSidebarOpen = ref(true);
 const route = useRoute();
 const sidebarStore = useSidebarStore();
 const locationsStore = useLocationStore();
-// const mapStore = useMapStore();
+const mapStore = useMapStore();
 
 // const { currentLocation, currentLocationStatus } = storeToRefs(locationsStore);
 
@@ -181,10 +181,10 @@ function toggleSidebar() {
             :label="item.label"
             :icon="item.icon"
             :to="item.to"
-          />
-          <!-- :icon-color="isPointSelected(item.mapPoint, mapStore.selectedPoint) ? 'text-accent' : undefined"
+            :icon-color="isPointSelected(item.mapPoint, mapStore.selectedPoint) ? 'text-accent' : undefined"
             @mouseenter="mapStore.selectedPoint = item.mapPoint ?? null"
-            @mouseleave="mapStore.selectedPoint = null" -->
+            @mouseleave="mapStore.selectedPoint = null"
+          />
         </div>
         <div class="divider" />
         <SidebarButton
@@ -208,7 +208,7 @@ function toggleSidebar() {
             'w-96': EDIT_PAGES.has(route.name?.toString() || ''),
           }"
         />
-        <!-- <AppMap class="flex-1" /> -->
+        <AppMap class="flex-1" />
       </div>
     </div>
   </div>

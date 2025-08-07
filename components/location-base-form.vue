@@ -9,7 +9,7 @@ import type {
   // NominatimResult
 } from "~/lib/types";
 
-// import { CENTER_USA } from "~/lib/constants";
+import { CENTER_USA } from "~/lib/constants";
 
 const props = defineProps<{
   initialValues: T;
@@ -22,7 +22,7 @@ const props = defineProps<{
 }>();
 
 const router = useRouter();
-// const mapStore = useMapStore();
+const mapStore = useMapStore();
 const loading = ref(false);
 const submitted = ref(false);
 const submitError = ref("");
@@ -32,7 +32,7 @@ const {
   errors,
   meta,
   setErrors,
-  // setFieldValue,
+  setFieldValue,
   controlledValues,
 } = useForm({
   validationSchema: toTypedSchema(props.schema),
@@ -78,23 +78,23 @@ function formatNumber(value?: number) {
 //   };
 // }
 
-// effect(() => {
-//   if (mapStore.addedPoint) {
-//     setFieldValue("long", mapStore.addedPoint.long);
-//     setFieldValue("lat", mapStore.addedPoint.lat);
-//   }
-// });
+effect(() => {
+  if (mapStore.addedPoint) {
+    setFieldValue("long", mapStore.addedPoint.long);
+    setFieldValue("lat", mapStore.addedPoint.lat);
+  }
+});
 
-// onMounted(() => {
-//   mapStore.addedPoint = {
-//     id: 1,
-//     name: "Added Point",
-//     description: "",
-//     long: props.initialValues?.long || (CENTER_USA as [number, number])[0],
-//     lat: props.initialValues?.lat || (CENTER_USA as [number, number])[1],
-//     zoom: props.zoom,
-//   };
-// });
+onMounted(() => {
+  mapStore.addedPoint = {
+    id: 1,
+    name: "Added Point",
+    description: "",
+    long: props.initialValues?.long || (CENTER_USA as [number, number])[0],
+    lat: props.initialValues?.lat || (CENTER_USA as [number, number])[1],
+    zoom: props.zoom,
+  };
+});
 
 onBeforeRouteLeave(() => {
   if (!submitted.value && meta.value.dirty) {
@@ -104,7 +104,7 @@ onBeforeRouteLeave(() => {
       return false;
     }
   }
-  // mapStore.addedPoint = null;
+  mapStore.addedPoint = null;
   return true;
 });
 </script>
