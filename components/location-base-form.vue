@@ -6,7 +6,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 
 import type {
   LatLongItem,
-  // NominatimResult
+  NominatimResult,
 } from "~/lib/types";
 
 import { CENTER_USA } from "~/lib/constants";
@@ -63,20 +63,20 @@ function formatNumber(value?: number) {
   return value.toFixed(5);
 }
 
-// function searchResultSelected(result: NominatimResult) {
-//   if (!controlledValues.value.name) {
-//     setFieldValue("name", result.display_name);
-//   }
-//   mapStore.addedPoint = {
-//     id: 1,
-//     name: "Added Point",
-//     description: "",
-//     long: Number(result.lon),
-//     lat: Number(result.lat),
-//     centerMap: true,
-//     zoom: 11,
-//   };
-// }
+function searchResultSelected(result: NominatimResult) {
+  if (!controlledValues.value.name) {
+    setFieldValue("name", result.display_name);
+  }
+  mapStore.addedPoint = {
+    id: 1,
+    name: "Added Point",
+    description: "",
+    long: Number(result.lon),
+    lat: Number(result.lat),
+    centerMap: true,
+    zoom: 11,
+  };
+}
 
 effect(() => {
   if (mapStore.addedPoint) {
@@ -162,5 +162,5 @@ onBeforeRouteLeave(() => {
     </div>
   </form>
   <div class="divider" />
-  <!-- <AppPlaceSearch @result-selected="searchResultSelected" /> -->
+  <AppPlaceSearch @result-selected="searchResultSelected" />
 </template>
