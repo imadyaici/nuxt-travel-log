@@ -91,7 +91,7 @@ onBeforeRouteUpdate((to) => {
               </NuxtLink>
             </li>
             <li>
-              <!-- <NuxtLink
+              <NuxtLink
                 :to="{
                   name: 'dashboard-location-slug-id-edit',
                   params: {
@@ -102,7 +102,7 @@ onBeforeRouteUpdate((to) => {
               >
                 <Icon name="tabler:map-pin-cog" size="20" />
                 Edit
-              </NuxtLink> -->
+              </NuxtLink>
             </li>
           </ul>
         </div>
