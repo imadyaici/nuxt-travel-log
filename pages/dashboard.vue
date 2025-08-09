@@ -7,19 +7,20 @@ const sidebarStore = useSidebarStore();
 const locationsStore = useLocationStore();
 const mapStore = useMapStore();
 
-// const { currentLocation, currentLocationStatus } = storeToRefs(locationsStore);
+const { currentLocation, currentLocationStatus } = storeToRefs(locationsStore);
 
+// await on server side for data to be available before render
 if (LOCATION_PAGES.has(route.name?.toString() || "")) {
   await locationsStore.refreshLocations();
 }
 
-// if (CURRENT_LOCATION_PAGES.has(route.name?.toString() || "") || CURRENT_LOCATION_LOG_PAGES.has(route.name?.toString() || "")) {
-//   await locationsStore.refreshCurrentLocation();
-// }
+if (CURRENT_LOCATION_PAGES.has(route.name?.toString() || "") || CURRENT_LOCATION_LOG_PAGES.has(route.name?.toString() || "")) {
+  await locationsStore.refreshCurrentLocation();
+}
 
-// if (CURRENT_LOCATION_LOG_PAGES.has(route.name?.toString() || "")) {
-//   await locationsStore.refreshCurrentLocationLog();
-// }
+if (CURRENT_LOCATION_LOG_PAGES.has(route.name?.toString() || "")) {
+  await locationsStore.refreshCurrentLocationLog();
+}
 
 onMounted(() => {
   isSidebarOpen.value = localStorage.getItem("isSidebarOpen") === "true";
@@ -47,87 +48,87 @@ effect(() => {
       icon: "tabler:arrow-left",
     }];
 
-    // if (currentLocation.value && currentLocationStatus.value !== "pending") {
-    //   sidebarStore.sidebarTopItems.push({
-    //     id: "link-dashboard",
-    //     label: currentLocation.value.name,
-    //     to: {
-    //       name: "dashboard-location-slug",
-    //       params: {
-    //         slug: route.params.slug,
-    //       },
-    //     },
-    //     icon: "tabler:map",
-    //   }, {
-    //     id: "link-location-edit",
-    //     label: "Edit Location",
-    //     to: {
-    //       name: "dashboard-location-slug-edit",
-    //       params: {
-    //         slug: route.params.slug,
-    //       },
-    //     },
-    //     icon: "tabler:map-pin-cog",
-    //   }, {
-    //     id: "link-location-add",
-    //     label: "Add Location Log",
-    //     to: {
-    //       name: "dashboard-location-slug-add",
-    //       params: {
-    //         slug: route.params.slug,
-    //       },
-    //     },
-    //     icon: "tabler:circle-plus-filled",
-    //   });
-    // }
+    if (currentLocation.value && currentLocationStatus.value !== "pending") {
+      sidebarStore.sidebarTopItems.push({
+        id: "link-dashboard",
+        label: currentLocation.value.name,
+        to: {
+          name: "dashboard-location-slug",
+          params: {
+            slug: route.params.slug,
+          },
+        },
+        icon: "tabler:map",
+      }, {
+        id: "link-location-edit",
+        label: "Edit Location",
+        to: {
+          name: "dashboard-location-slug-edit",
+          params: {
+            slug: route.params.slug,
+          },
+        },
+        icon: "tabler:map-pin-cog",
+      }, {
+        id: "link-location-add",
+        label: "Add Location Log",
+        to: {
+          name: "dashboard-location-slug-add",
+          params: {
+            slug: route.params.slug,
+          },
+        },
+        icon: "tabler:circle-plus-filled",
+      });
+    }
   }
   else if (CURRENT_LOCATION_LOG_PAGES.has(route.name?.toString() || "")) {
-    // if (currentLocation.value && currentLocationStatus.value !== "pending") {
-    //   sidebarStore.sidebarTopItems = [{
-    //     id: "link-location",
-    //     label: `Back to "${currentLocation.value.name}"`,
-    //     to: {
-    //       name: "dashboard-location-slug",
-    //       params: {
-    //         slug: route.params.slug,
-    //       },
-    //     },
-    //     icon: "tabler:arrow-left",
-    //   }, {
-    //     id: "link-view-location-log",
-    //     label: "View Log",
-    //     to: {
-    //       name: "dashboard-location-slug-id",
-    //       params: {
-    //         slug: route.params.slug,
-    //         id: route.params.id,
-    //       },
-    //     },
-    //     icon: "tabler:map-pin",
-    //   }, {
-    //     id: "link-edit-location-log",
-    //     label: "Edit Log",
-    //     to: {
-    //       name: "dashboard-location-slug-id-edit",
-    //       params: {
-    //         slug: route.params.slug,
-    //         id: route.params.id,
-    //       },
-    //     },
-    //     icon: "tabler:map-pin-cog",
-    //   }, {
-    //     id: "link-location-log-images",
-    //     label: "Manage Images",
-    //     to: {
-    //       name: "dashboard-location-slug-id-images",
-    //       params: {
-    //         slug: route.params.slug,
-    //         id: route.params.id,
-    //       },
-    //     },
-    //     icon: "tabler:photo-cog",
-    //   }];
-    // }
+    if (currentLocation.value && currentLocationStatus.value !== "pending") {
+      sidebarStore.sidebarTopItems = [{
+        id: "link-location",
+        label: `Back to "${currentLocation.value.name}"`,
+        to: {
+          name: "dashboard-location-slug",
+          params: {
+            slug: route.params.slug,
+          },
+        },
+        icon: "tabler:arrow-left",
+      }, {
+        id: "link-view-location-log",
+        label: "View Log",
+        to: {
+          name: "dashboard-location-slug-id",
+          params: {
+            slug: route.params.slug,
+            id: route.params.id,
+          },
+        },
+        icon: "tabler:map-pin",
+      }, {
+        id: "link-edit-location-log",
+        label: "Edit Log",
+        to: {
+          name: "dashboard-location-slug-id-edit",
+          params: {
+            slug: route.params.slug,
+            id: route.params.id,
+          },
+        },
+        icon: "tabler:map-pin-cog",
+      }, {
+        id: "link-location-log-images",
+        label: "Manage Images",
+        to: {
+          name: "dashboard-location-slug-id-images",
+          params: {
+            slug: route.params.slug,
+            id: route.params.id,
+          },
+        },
+        icon: "tabler:photo-cog",
+      }];
+    }
   }
 });
 
@@ -166,9 +167,9 @@ function toggleSidebar() {
           :href="item.href"
           :to="item.to"
         />
-        <!-- <div v-if="route.path.startsWith('/dashboard/location') && currentLocationStatus === 'pending'" class="flex items-center justify-center">
+        <div v-if="route.path.startsWith('/dashboard/location') && currentLocationStatus === 'pending'" class="flex items-center justify-center">
           <div class="loading" />
-        </div> -->
+        </div>
         <div v-if="sidebarStore.loading || sidebarStore.sidebarItems.length" class="divider" />
         <div v-if="sidebarStore.loading" class="px-4">
           <div class="skeleton h-4 w-full" />
