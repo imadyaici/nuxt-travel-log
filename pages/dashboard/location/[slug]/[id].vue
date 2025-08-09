@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-// import type { FetchError } from "ofetch";
+import type { FetchError } from "ofetch";
 
 const route = useRoute();
 const locationStore = useLocationStore();
@@ -16,27 +16,27 @@ const isDeleting = ref(false);
 const loading = computed(() => isDeleting.value || status.value === "pending");
 const errorMessage = computed(() => deleteError.value || error.value?.statusMessage);
 
-// async function confirmDelete() {
-//   try {
-//     isOpen.value = false;
-//     deleteError.value = "";
-//     isDeleting.value = true;
-//     await $fetch(`/api/locations/${route.params.slug}/${route.params.id}`, {
-//       method: "DELETE",
-//     });
-//     navigateTo({
-//       name: "dashboard-location-slug",
-//       params: {
-//         slug: route.params.slug,
-//       },
-//     });
-//   }
-//   catch (e) {
-//     const error = e as FetchError;
-//     deleteError.value = getFetchErrorMessage(error);
-//   }
-//   isDeleting.value = false;
-// }
+async function confirmDelete() {
+  try {
+    isOpen.value = false;
+    deleteError.value = "";
+    isDeleting.value = true;
+    await $fetch(`/api/locations/${route.params.slug}/${route.params.id}`, {
+      method: "DELETE",
+    });
+    navigateTo({
+      name: "dashboard-location-slug",
+      params: {
+        slug: route.params.slug,
+      },
+    });
+  }
+  catch (e) {
+    const error = e as FetchError;
+    deleteError.value = getFetchErrorMessage(error);
+  }
+  isDeleting.value = false;
+}
 
 function openDialog() {
   isOpen.value = true;
@@ -128,7 +128,7 @@ onBeforeRouteUpdate((to) => {
       confirm-class="btn-error"
       :is-open="isOpen"
       @on-closed="isOpen = false"
+      @on-confirmed="confirmDelete"
     />
-    <!-- @on-confirmed="confirmDelete" -->
   </div>
 </template>
