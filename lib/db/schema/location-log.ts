@@ -1,10 +1,11 @@
+import type { z } from "zod";
+
 import { relations } from "drizzle-orm";
 import { int, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
-// import { createInsertSchema } from "drizzle-zod";
-// import { z } from "zod";
+import { createInsertSchema } from "drizzle-zod";
 
 // import type { SelectLocationLogImage } from "./location-log-image";
-// import { DateSchema, DescriptionSchema, LatSchema, LongSchema, NameSchema } from "../../zod-schemas";
+import { DateSchema, DescriptionSchema, LatSchema, LongSchema, NameSchema } from "../../zod-schemas";
 import { user } from "./auth";
 import { location } from "./location";
 // import { locationLogImage } from "./location-log-image";
@@ -40,36 +41,36 @@ export const locationLogRelations = relations(locationLog, ({ one }) => ({
   // images: many(locationLogImage),
 }));
 
-// export const InsertLocationLog = createInsertSchema(locationLog, {
-//   name: NameSchema,
-//   description: DescriptionSchema,
-//   lat: LatSchema,
-//   long: LongSchema,
-//   startedAt: DateSchema,
-//   endedAt: DateSchema,
-// }).omit({
-//   id: true,
-//   userId: true,
-//   locationId: true,
-//   createdAt: true,
-//   updatedAt: true,
-// }).superRefine((values, context) => {
-//   if (values.startedAt > values.endedAt || values.endedAt < values.startedAt) {
-//     context.addIssue({
-//       code: z.ZodIssueCode.custom,
-//       message: "Start Date must be before End Date",
-//       path: ["startedAt"],
-//     });
-//     context.addIssue({
-//       code: z.ZodIssueCode.custom,
-//       message: "End Date must be after Start Date",
-//       path: ["endedAt"],
-//     });
-//   }
-// });
+export const InsertLocationLog = createInsertSchema(locationLog, {
+  name: NameSchema,
+  description: DescriptionSchema,
+  lat: LatSchema,
+  long: LongSchema,
+  startedAt: DateSchema,
+  endedAt: DateSchema,
+}).omit({
+  id: true,
+  userId: true,
+  locationId: true,
+  createdAt: true,
+  updatedAt: true,
+}).superRefine((values, context) => {
+  if (values.startedAt > values.endedAt || values.endedAt < values.startedAt) {
+    context.addIssue({
+      code: "custom",
+      message: "Start Date must be before End Date",
+      path: ["startedAt"],
+    });
+    context.addIssue({
+      code: "custom",
+      message: "End Date must be after Start Date",
+      path: ["endedAt"],
+    });
+  }
+});
 
-// export type InsertLocationLog = z.infer<typeof InsertLocationLog>;
+export type InsertLocationLog = z.infer<typeof InsertLocationLog>;
 export type SelectLocationLog = typeof locationLog.$inferSelect;
-// export type SelectLocationLogWithImages = SelectLocationLog & {
-//   images: SelectLocationLogImage[];
-// };
+export type SelectLocationLogWithImages = SelectLocationLog & {
+  // images: SelectLocationLogImage[];
+};

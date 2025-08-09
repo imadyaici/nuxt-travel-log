@@ -1,5 +1,5 @@
 import type {
-  // SelectLocationLogWithImages,
+  SelectLocationLogWithImages,
   SelectLocationWithLogs,
 } from "~/lib/db/schema";
 import type { MapPoint } from "~/lib/types";
@@ -40,8 +40,7 @@ export const useLocationStore = defineStore("useLocationStore", () => {
     status: currentLocationLogStatus,
     error: currentLocationLogError,
     refresh: refreshCurrentLocationLog,
-  // } = useFetch<SelectLocationLogWithImages>(locationLogUrlWithSlugAndId, {
-  } = useFetch(locationLogUrlWithSlugAndId, {
+  } = useFetch<SelectLocationLogWithImages>(locationLogUrlWithSlugAndId, {
     lazy: true,
     immediate: false,
     watch: false,
