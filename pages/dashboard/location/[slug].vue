@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-// import type { FetchError } from "ofetch";
+import type { FetchError } from "ofetch";
 
 const route = useRoute();
 const locationStore = useLocationStore();
@@ -25,22 +25,22 @@ function openDialog() {
   (document.activeElement as HTMLAnchorElement).blur();
 }
 
-// async function confirmDelete() {
-//   try {
-//     isOpen.value = false;
-//     deleteError.value = "";
-//     isDeleting.value = true;
-//     await $fetch(`/api/locations/${route.params.slug}`, {
-//       method: "DELETE",
-//     });
-//     navigateTo("/dashboard");
-//   }
-//   catch (e) {
-//     const error = e as FetchError;
-//     deleteError.value = getFetchErrorMessage(error);
-//   }
-//   isDeleting.value = false;
-// }
+async function confirmDelete() {
+  try {
+    isOpen.value = false;
+    deleteError.value = "";
+    isDeleting.value = true;
+    await $fetch(`/api/locations/${route.params.slug}`, {
+      method: "DELETE",
+    });
+    navigateTo("/dashboard");
+  }
+  catch (e) {
+    const error = e as FetchError;
+    deleteError.value = getFetchErrorMessage(error);
+  }
+  isDeleting.value = false;
+}
 
 onBeforeRouteUpdate((to) => {
   if (to.name === "dashboard-location-slug") {
@@ -134,7 +134,7 @@ onBeforeRouteUpdate((to) => {
     <div v-if="route.name !== 'dashboard-location-slug'">
       <NuxtPage />
     </div>
-    <!-- <AppDialog
+    <AppDialog
       title="Are you sure?"
       description="Deleting this location will also delete all of the associated logs. This cannot be undone. Do you really want to do this?"
       confirm-label="Yes, delete this location!"
@@ -142,6 +142,6 @@ onBeforeRouteUpdate((to) => {
       :is-open="isOpen"
       @on-closed="isOpen = false"
       @on-confirmed="confirmDelete"
-    /> -->
+    />
   </div>
 </template>
