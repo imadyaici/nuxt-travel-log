@@ -108,24 +108,24 @@ effect(() => {
       }, {
         id: "link-edit-location-log",
         label: "Edit Log",
-        to: {
-          name: "dashboard-location-slug-id-edit",
-          params: {
-            slug: route.params.slug,
-            id: route.params.id,
-          },
-        },
+        // to: {
+        //   name: "dashboard-location-slug-id-edit",
+        //   params: {
+        //     slug: route.params.slug,
+        //     id: route.params.id,
+        //   },
+        // },
         icon: "tabler:map-pin-cog",
       }, {
         id: "link-location-log-images",
         label: "Manage Images",
-        to: {
-          name: "dashboard-location-slug-id-images",
-          params: {
-            slug: route.params.slug,
-            id: route.params.id,
-          },
-        },
+        // to: {
+        //   name: "dashboard-location-slug-id-images",
+        //   params: {
+        //     slug: route.params.slug,
+        //     id: route.params.id,
+        //   },
+        // },
         icon: "tabler:photo-cog",
       }];
     }
